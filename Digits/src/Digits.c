@@ -68,19 +68,6 @@ void update_display(PblTm *current_time) {
   set_container_image(&time_digits_images[1], BIG_IMAGE_RESOURCE_IDS[display_hour%10], GPoint(0, 0));
   set_container_image(&time_digits_images[2], SMALL_IMAGE_RESOURCE_IDS[current_time->tm_min/10], GPoint(39, 106));
   set_container_image(&time_digits_images[3], BIG_IMAGE_RESOURCE_IDS[current_time->tm_min%10], GPoint(0, 83));
-  if (!clock_is_24h_style()) {
-    if (current_time->tm_hour >= 12) {
-      set_container_image(&time_format_image, RESOURCE_ID_IMAGE_PM_MODE, GPoint(17, 68));
-    } else {
-      layer_remove_from_parent(&time_format_image.layer.layer);
-      bmp_deinit_container(&time_format_image);
-    }
-
-    if (display_hour/10 == 0) {
-      layer_remove_from_parent(&time_digits_images[0].layer.layer);
-      bmp_deinit_container(&time_digits_images[0]);
-    }
-  }
 }
 
 void handle_minute_tick(AppContextRef ctx, PebbleTickEvent *t) {
